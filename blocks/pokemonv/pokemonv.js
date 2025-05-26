@@ -150,6 +150,7 @@ cards.id = "cards";
    const favBtn = card.querySelector(".favorite");
    favBtn.addEventListener("click", () => toggleFavorite(pokemon.name, favBtn));
    cards.appendChild(card);
+   
  };
  const renderPagination = (total) => {
    pagination.innerHTML = "";
