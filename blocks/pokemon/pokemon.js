@@ -240,6 +240,7 @@ window.digitalData.pokemon={
  
 
 }
+window.localStorage.setItem("favPokemon ",data.name);
 }
 
 function appendTypes(types) {

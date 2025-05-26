@@ -80,7 +80,9 @@ body {
   line-height: 1.6;
 }
 
-
+/* body.appear {
+  display: block;
+} */
 
 header {
   height: var(--nav-height);
