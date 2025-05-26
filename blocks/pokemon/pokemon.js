@@ -199,6 +199,8 @@ function generateCard(data) {
   const statDefense = data.stats[2].base_stat;
   const statSpeed = data.stats[5].base_stat;
   const themeColor = typecolor[data.types[0].type.name] || "#777";
+  
+
   card.innerHTML = `
 <p class="hp">
 <span>HP</span> ${hp}
@@ -224,7 +226,22 @@ function generateCard(data) {
   appendTypes(data.types);
   styleCard(themeColor);
   document.body.style.backgroundColor = themeColor;
+  
+
+
+
+window.digitalData=window.digitalData || {};
+window.digitalData.pokemon={
+    name: data.name,
+    id: data.id,
+    hp: data.stats[0].base_stat,
+    types: data.types.map(t => t.type.name),
+    image: data.sprites.other.dream_world.front_default || data.sprites.front_default
+ 
+
 }
+}
+
 function appendTypes(types) {
   const typesContainer = document.querySelector(".types");
   typesContainer.innerHTML = "";
@@ -279,3 +296,4 @@ window.addEventListener("load", () => {
   input.value = defaultPokemon;
   getPokeData(defaultPokemon);
 });
+
