@@ -131,6 +131,20 @@ style.textContent = `
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
+    
+#fav-btn {
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  background-color: #6c5ce7;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px #6c5ce780;
+}
+
 `;
 document.head.appendChild(style);
 // Create HTML structure via JS
@@ -148,6 +162,12 @@ button.id = 'btn';
 button.textContent = 'Search';
 searchContainer.appendChild(input);
 searchContainer.appendChild(button);
+//new things
+const favButton = document.createElement('button');
+favButton.id = 'fav-btn';
+favButton.textContent = 'Favorite';
+searchContainer.appendChild(favButton)
+
 document.body.appendChild(searchContainer);
 // JS Logic
 const typecolor = {
@@ -240,8 +260,18 @@ window.digitalData.pokemon={
  
 
 }
-window.localStorage.setItem("favPokemon ",data.name);
 }
+//New Things
+favButton.addEventListener("click", () => {
+  if (window.digitalData && window.digitalData.pokemon) {
+    const fav = window.digitalData.pokemon;
+    localStorage.setItem("favoritePokemon", JSON.stringify(fav));
+    alert(`${fav.name[0].toUpperCase() + fav.name.slice(1)} has been added to your favorites!`);
+  } else {
+    alert("No Pokémon selected to favorite.");
+  }
+});
+
 
 function appendTypes(types) {
   const typesContainer = document.querySelector(".types");
@@ -292,6 +322,18 @@ const getSuggestions = (query) => {
     }
   
   });
+  //New things
+  window.addEventListener("load", () => {
+    const fav = localStorage.getItem("favoritePokemon");
+    if (fav) {
+      const favData = JSON.parse(fav);
+      getPokeData(favData.name);
+    } else {
+      input.value = defaultPokemon;
+      getPokeData(defaultPokemon);
+    }
+  });
+  
    
 window.addEventListener("load", () => {
   input.value = defaultPokemon;
