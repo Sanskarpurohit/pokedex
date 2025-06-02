@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medi Assist - Medicare Quote</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f8fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }.container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}
+ 
+h1, h2 {
+  text-align: center;
+  color: #0066cc;
+}
+ 
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+}
+ 
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+ 
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background-color: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+ 
+button:hover {
+  background-color: #004f99;
+}
+ 
+.step {
+  display: none;
+}
+ 
+.step.active {
+  display: block;
+}
+ 
+pre {
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+ 
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Medi Assist</h1>
+    <h2>Get Your Medicare Quote</h2><!-- Step 1 -->
+<div class="step active" id="step1">
+  <label>What is your full name?</label>
+  <input type="text" id="name">
+  <button onclick="nextStep(2)">Next</button>
+</div>
+ 
+<!-- Step 2 -->
+<div class="step" id="step2">
+  <label>Age:</label>
+  <input type="number" id="age">
+  <label>Gender:</label>
+  <select id="gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+  <button onclick="nextStep(3)">Next</button>
+</div>
+ 
+<!-- Step 3 -->
+<div class="step" id="step3">
+  <label>City:</label>
+  <input type="text" id="city">
+  <label>Email:</label>
+  <input type="email" id="email">
+  <label>Phone:</label>
+  <input type="text" id="phone">
+  <label>Preferred Contact:</label>
+  <select id="contact">
+    <option value="email_sms">Email + SMS</option>
+    <option value="email">Email only</option>
+    <option value="sms">SMS only</option>
+  </select>
+  <button onclick="submitQuote()">Submit</button>
+</div>
+ 
+<!-- Step 4: Confirmation -->
+<div class="step" id="step4">
+  <h2>Quote Submitted</h2>
+  <p style="text-align:center">We'll contact you shortly with the best Medicare options.</p>
+  <h3>Data Layer:</h3>
+  <pre id="dataLayerPreview"></pre>
+</div>
+ 
+  </div>  <script>
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + stepNumber).classList.add('active');
+    }
+ 
+    function submitQuote() {
+      const data = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        city: document.getElementById('city').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        preferredContact: document.getElementById('contact').value,
+      };
+ 
+      nextStep(4);
+      document.getElementById('dataLayerPreview').textContent = JSON.stringify(data, null, 2);
+    }
+  </script></body>
+</html>
